@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CutCornerShape
@@ -64,14 +65,12 @@ fun SupercraftFlipCards(
             .padding(innerPaddingValues)
             .clickable {
                 coroutineScope.launch {
-                    // Animate to 180 or 0/360 depending on current state
                     val targetValue = if (rotation.value < 180f) 180f else 360f
                     rotation.animateTo(
                         targetValue = targetValue,
                         animationSpec = tween(600)
                     )
 
-                    // Reset to 0 if we reached 360
                     if (rotation.value >= 360f) {
                         rotation.snapTo(0f)
                     }
@@ -84,7 +83,6 @@ fun SupercraftFlipCards(
                 .graphicsLayer {
                     rotationY = frontRotation
                     cameraDistance = 12 * density
-                    // Hide backface when rotated
                     alpha = if (isFrontVisible) 1f else 0f
                 }
         )
@@ -120,9 +118,10 @@ fun InactiveCard(modifier: Modifier = Modifier) {
 
         Image(
             painter = painterResource(R.drawable.ic_rocket),
-            contentDescription = "Border",
+            contentDescription = "Rocket",
             modifier = Modifier
-                .align(Alignment.CenterEnd)
+                .height(345.dp)
+                .align(Alignment.BottomEnd)
                 .padding(top = 24.dp),
         )
 
@@ -163,7 +162,7 @@ fun ActiveCard(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .width(310.dp)
-            .clip(CutCornerShape(topEnd = 20.dp, bottomStart = 20.dp))
+            .clip(CutCornerShape(topStart = 20.dp, bottomEnd = 20.dp))
             .background(
                 Color(0xffCAD5FC)
             )
@@ -172,21 +171,30 @@ fun ActiveCard(modifier: Modifier = Modifier) {
         Image(
             painter = painterResource(R.drawable.ic_border),
             contentDescription = "Border",
-            modifier = Modifier.align(Alignment.Center)
+            modifier = Modifier
+                .align(Alignment.Center)
+                .graphicsLayer {
+                    rotationY = 180f
+                }
         )
 
         Image(
             painter = painterResource(R.drawable.ic_rocket),
-            contentDescription = "Border",
+            contentDescription = "Rocket",
             modifier = Modifier
-                .align(Alignment.CenterEnd)
-                .padding(top = 24.dp),
+                .height(320.dp)
+                .align(Alignment.BottomStart)
+                .graphicsLayer {
+                    rotationY = 180f
+                },
         )
 
         Image(
             painter = painterResource(R.drawable.ic_union),
             contentDescription = "Union",
-            modifier = Modifier.padding(10.dp),
+            modifier = Modifier
+                .padding(10.dp)
+                .align(Alignment.TopEnd),
             colorFilter = ColorFilter.tint(
                 Color(0xffB9BDF6)
             )
