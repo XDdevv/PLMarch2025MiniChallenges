@@ -1,4 +1,4 @@
-package zed.rainxch.plmarch2025minichallenges.ui.theme
+package zed.rainxch.plmarch2025minichallenges.presentation.core.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

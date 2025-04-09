@@ -1,4 +1,4 @@
-package zed.rainxch.plmarch2025minichallenges.challenges.first
+package zed.rainxch.plmarch2025minichallenges.presentation.challenges.first
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
